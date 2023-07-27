@@ -16,8 +16,8 @@ ifeq ($(ARCH), x86_64)
 ARCH = x64
 endif
 
-DOCKER_IMAGE_GLIBC = node:16.3.0-slim-builder ##TODO: remove "-builder"
-DOCKER_IMAGE_MUSL = node:16.3.0-alpine ## TODO: change according to n8n image
+DOCKER_IMAGE_GLIBC = node:16-slim-builder ##TODO: remove "-builder"
+DOCKER_IMAGE_MUSL = node:16-alpine-builder ## TODO: change according to n8n image
 
 DOCKER_PLATFORM_ARM64 = arm64
 DOCKER_PLATFORM_X64 = amd64
