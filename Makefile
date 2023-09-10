@@ -3,17 +3,17 @@ UNAME := $(shell uname)
 LIB_FILE = addon.node
 
 ifeq ($(UNAME), Darwin)
-ARCH = $(shell uname -m)
+ARCH ?= $(shell uname -m)
 LIBC ?= unknown
 endif
 
 ifeq ($(UNAME), Linux)
-ARCH = $(shell uname -m)
+ARCH ?= $(shell uname -m)
 LIBC ?= glibc
 endif
 
 ifeq ($(ARCH), x86_64)
-ARCH = x64
+ARCH ?= x64
 endif
 
 DOCKER_IMAGE_GLIBC = node:16-slim ##TODO: remove "-builder"
@@ -103,23 +103,3 @@ build-lib-native-compile:
 
 build-lib-archive:
 	cd prebuilds && tar -czvf $(TGZ_NAME) lib/* && cp $(TGZ_NAME) ..
-
-build-lib-archive-linux-x64-glibc:
-	set -e ;\
-	TGZ_NAME=linux-x64-glibc.tar.gz ;\
-	cd prebuilds && tar -czvf $(TGZ_NAME) lib/* && cp $(TGZ_NAME) ..
-
-build-lib-archive-linux-x64-musl:
-	set -e ;\
-	TGZ_NAME=linux-x64-musl.tar.gz ;\
-	cd prebuilds && tar -czvf $(TGZ_NAME) lib/* && cp $(TGZ_NAME) ..
-
-build-lib-archive-linux-arm64-glibc:
-	set -e ;\
-	TGZ_NAME=linux-arm64-glibc.tar.gz ;\
-	cd prebuilds && tar -czvf $(TGZ_NAME) lib/* && cp $(TGZ_NAME) ..
-
-build-lib-archive-linux-arm64-musl:
-	set -e ;\
-	TGZ_NAME=linux-arm64-musl.tar.gz ;\
-	cd prebuilds && tar -czvf $$TGZ_NAME lib/* && cp $$TGZ_NAME ..
