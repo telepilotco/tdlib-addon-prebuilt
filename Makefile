@@ -102,29 +102,24 @@ build-lib-native-compile:
 	cp build/Release/$(LIB_FILE) prebuilds/lib/$(LIB_FILE)
 
 build-lib-archive:
-	-sha256sum prebuilds/lib/$(LIB_FILE) >> prebuilds/lib/info.txt
 	cd prebuilds && tar -czvf $(TGZ_NAME) lib/* && cp $(TGZ_NAME) ..
 
 build-lib-archive-linux-x64-glibc:
 	set -e ;\
 	TGZ_NAME=linux-x64-glibc.tar.gz ;\
-	sha256sum prebuilds/lib/$(LIB_FILE) >> prebuilds/lib/info.txt ;\
 	cd prebuilds && tar -czvf $(TGZ_NAME) lib/* && cp $(TGZ_NAME) ..
 
 build-lib-archive-linux-x64-musl:
 	set -e ;\
 	TGZ_NAME=linux-x64-musl.tar.gz ;\
-	sha256sum prebuilds/lib/$(LIB_FILE) >> prebuilds/lib/info.txt ;\
 	cd prebuilds && tar -czvf $(TGZ_NAME) lib/* && cp $(TGZ_NAME) ..
 
 build-lib-archive-linux-arm64-glibc:
 	set -e ;\
 	TGZ_NAME=linux-arm64-glibc.tar.gz ;\
-	sha256sum prebuilds/lib/$(LIB_FILE) >> prebuilds/lib/info.txt ;\
 	cd prebuilds && tar -czvf $(TGZ_NAME) lib/* && cp $(TGZ_NAME) ..
 
 build-lib-archive-linux-arm64-musl:
 	set -e ;\
 	TGZ_NAME=linux-arm64-musl.tar.gz ;\
-	sha256sum prebuilds/lib/$(LIB_FILE) >> prebuilds/lib/info.txt ;\
 	cd prebuilds && tar -czvf $$TGZ_NAME lib/* && cp $$TGZ_NAME ..
