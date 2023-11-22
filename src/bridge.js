@@ -24,9 +24,9 @@ class BridgeLib {
     this._addon.load_tdjson(libraryFile);
   }
 
-  create() {
+  create(nodeVersion, addonVersion, binaryVersion) {
     debug('create');
-    return this._addon.td_client_create();
+    return this._addon.td_client_create(nodeVersion, addonVersion, binaryVersion);
   }
 
   send(client, query) {

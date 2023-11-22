@@ -229,6 +229,18 @@ export class Client {
     if (this._options.disableAuth)
       this._options.bare = true
 
+    debug("options.nodeVersion=", options.nodeVersion)
+    if (!options.nodeVersion)
+      this._options.nodeVersion = "NONE"
+
+    debug("options.addonVersion=", options.addonVersion)
+    if (!options.addonVersion)
+      this._options.addonVersion = "NONE"
+
+    debug("options.binaryVersion=", options.binaryVersion)
+    if (!options.binaryVersion)
+      this._options.binaryVersion = "NONE"
+
     if (!this._options.bare) {
       if (!options.apiId && !options.tdlibParameters?.api_id)
         throw new TypeError('Valid api_id must be provided.')
@@ -247,7 +259,7 @@ export class Client {
       })
     }
 
-    this._client = this._tdlib.create()
+    this._client = this._tdlib.create(this._options.nodeVersion, this._options.addonVersion, this._options.binaryVersion)
 
     if (!this._client)
       throw new Error('Failed to create a TDLib client')
