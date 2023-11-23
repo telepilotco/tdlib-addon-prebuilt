@@ -5,7 +5,7 @@ name: Build TDLib Addon binaries
 on:
   workflow_dispatch:
     inputs:
-      tdlib:
+      ADDON_VERSION:
         description: 'TDLib git ref (e.g. v1.8.0 or a commit hash)'
         type: string
         required: true
@@ -55,7 +55,7 @@ jobs:
       - name: Set variables
         run:  |
           echo "TGZ_NAME=linux-${{ matrix.platform == 'arm64' && env.ARCH_ARM64 || env.ARCH_X64 }}-${{ matrix.libc }}.tar.gz" >> $GITHUB_ENV
-          echo 'ADDON_VERSION=0.0.1-0' >> $GITHUB_ENV
+          echo 'ADDON_VERSION=${{ inputs.ADDON_VERSION }}' >> $GITHUB_ENV
           echo 'TDLIB_GIT_COMMIT_HASH='`cd deps/td && git rev-parse HEAD` >> $GITHUB_ENV
 #         echo 'ADDON_VERSION='`cat deps/td/CMakeLists.txt | sed -nr "s/project\(TDLib VERSION ([0-9.]+) LANGUAGES CXX C\)/\1/p"` >> $GITHUB_ENV
 #       - name: Show variables
@@ -94,7 +94,7 @@ jobs:
           # Ssh user
           user: ${{ vars.SSH_USERNAME }}
           command: |
-            mkdir -p ${{ vars.TARGET_UPLOAD_FOLDER }}/v${{ env.TDLIB_VERSION }}TTT
+            mkdir -p ${{ vars.TARGET_UPLOAD_FOLDER }}/v${{ env.ADDON_VERSION }}
       - name: Upload to version folder
         uses: appleboy/scp-action@v0.1.4
         with:
