@@ -52,8 +52,12 @@ run:
 publish:
 	npm publish
 
-clean-lib:
-	rm -rf deps/td/build/
+clean:
+	rm -rf build/
+	rm -rf dist/
+	rm -rf node_modules/
+	clean-prebuilds
+	clean-archives
 
 clean-prebuilds:
 	rm -rf prebuilds/

@@ -1,6 +1,6 @@
 {
   "name": "@telepilotco/tdlib-addon-prebuilt",
-  "version": "0.0.1-16",
+  "version": "0.1.0",
   "description": "Prebuilt TDLib library node addon, distributed with node-pre-gyp",
   "main": "index.js",
   "types": "index.d.ts",
