@@ -41,7 +41,7 @@ ifeq ($(UNAME), Linux)
 endif
 
 
-clean: clean-lib clean-prebuilds clean-archives
+clean: clean-prebuilds clean-archives
 
 build:
 	build-lib
@@ -103,7 +103,8 @@ build-lib-docker-linux-x64-musl:
 
 build-lib-native-compile:
 	npm run build:gyp
-	cp build/Release/$(LIB_FILE) prebuilds/lib/$(LIB_FILE)
+	mkdir -p prebuilds/lib/
+	cp -L build/Release/$(LIB_FILE) ./prebuilds/lib/$(LIB_FILE)
 
 build-lib-archive:
 	cd prebuilds && tar -czvf $(TGZ_NAME) lib/* && cp $(TGZ_NAME) ..
