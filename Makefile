@@ -13,7 +13,7 @@ LIBC ?= glibc
 endif
 
 ifeq ($(ARCH), x86_64)
-ARCH ?= x64
+ARCH = x64
 endif
 
 DOCKER_IMAGE_GLIBC = node:16-slim ##TODO: remove "-builder"
