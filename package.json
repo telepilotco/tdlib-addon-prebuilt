@@ -49,7 +49,6 @@
   },
   "dependencies": {
     "@mapbox/node-pre-gyp": "^1.0.10",
-    "babel": "^6.23.0",
     "eventemitter3": "^4.0.7"
   }
 }
