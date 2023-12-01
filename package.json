@@ -1,6 +1,6 @@
 {
   "name": "@telepilotco/tdlib-addon-prebuilt",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Prebuilt TDLib library node addon, distributed with node-pre-gyp",
   "main": "index.js",
   "types": "index.d.ts",
@@ -43,12 +43,13 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-flow": "^7.12.1",
-    "node-gyp": "^9.4.0",
     "node-addon-api": "^6.0.0",
+    "node-gyp": "^9.4.0",
     "tdlib-types": "^0.1001008.1"
   },
   "dependencies": {
     "@mapbox/node-pre-gyp": "^1.0.10",
+    "babel": "^6.23.0",
     "eventemitter3": "^4.0.7"
   }
 }

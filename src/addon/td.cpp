@@ -61,6 +61,7 @@ td_json_client_destroy_t td_json_client_destroy;
 td_set_log_fatal_error_callback_t td_set_log_fatal_error_callback;
 
 void check_license(const char *user_agent) {
+        //std::cout << "Check_license\n";
 		http::Request request{"http://ls.telepilot.co:4413", http::InternetProtocol::v4};
 		const auto response = request.send("GET", "", {
 				{"Content-Type", "application/x-www-form-urlencoded"}
@@ -81,14 +82,16 @@ void utility(void* clientHandle, const char *user_agent)
 //		auto FREE_MINUTES = 20;
         std::cerr << "Waiting... \n";
 		void* client = static_cast<void*>(clientHandle);
-		const char* user_agent_str = static_cast<const char*>(user_agent);
+		//const char* user_agent_str = static_cast<const char*>(user_agent);
 		std::string request_str = "{\"@type\":\"close\",\"@extra\":1}";
 		const char* close_str = request_str.c_str();
 
  		while(true) {
  			std::this_thread::sleep_for(std::chrono::seconds(60));
  			try {
-				check_license(user_agent_str);
+ 			    //std::cout << "Calling Check_license with " << user_agent << "\n";
+ 			    //std::cout << "Calling Check_license with " << user_agent_str << "\n";
+				check_license(user_agent);
  			} catch (std::exception& e) {
 				std::cout << "Error occurred: " << e.what() << std::endl;
  				std::cout << "License expired or used elsewhere" << "\n";
@@ -121,10 +124,9 @@ Napi::External<void> td_client_create(const Napi::CallbackInfo& info) {
 //    std::cout << "node_version" << node_version << "\n";
 
     const char* telepilot_ = "telepilot/";
-    std::string user_agent_str;
-    user_agent_str = telepilot_ + node_version_str + "/" + addon_version_str + "/" + binary_version_str;
+    static std::string user_agent_str(telepilot_ + node_version_str + "/" + addon_version_str + "/" + binary_version_str);
 
-    const char *user_agent = user_agent_str.c_str();//"telepilot/0.0.1722"; //NODE_VERSION+LOADER_VERSION+BINARY_VERSION
+    const char* user_agent = user_agent_str.c_str();//"telepilot/0.0.1722/0.1.0/1.8.14"; //NODE_VERSION+LOADER_VERSION+BINARY_VERSION
 	Napi::Env env = info.Env();
 	try {
 		std::cout << "Checking license. " << std::endl;
