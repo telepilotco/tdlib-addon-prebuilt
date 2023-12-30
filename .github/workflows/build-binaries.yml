@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
-      max-parallel: 2
+      max-parallel: 1
       matrix:
         platform:
           - x64
@@ -121,7 +121,7 @@ jobs:
           # Your Github token; try \$\{\{ secrets.GITHUB_TOKEN \}\} if your build lasts less than an hour, or create your own secret token with repository access if your build requires longer than an hour.
           token: ${{ secrets.GH_TOKEN }}
           # Paths to built files to be released. May be absolute or relative to \$\{\{ github.workspace \}\}.
-          files: "*.tar.gz"
+          files: ${{ env.TGZ_NAME }}
           # The name of the release to be created. A reasonable looking release name will be created from the current \$\{\{ github.ref \}\} if this input is not supplied.
           release: ${{ env.ADDON_VERSION }}
           # # The name of the tag to be used. If not provided, the name of the release will be used.
