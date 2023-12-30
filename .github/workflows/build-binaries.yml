@@ -134,16 +134,22 @@ jobs:
       #     # prerelease: # optional
       #     # Should the release, if created, be marked as a draft?  Such releases are generally not publicly visible.
       #     draft: true
-      - name: Upload multi files to GitHub release assets
-        # You may pin to the exact commit or the version.
-        # uses: tornado404/upload-multi-assets@3c0e93a7e18f3f3d766177de6eb125392f25f555
-        uses: tornado404/upload-multi-assets@v0.7.6
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
-          # git tag
-          tag: ${{ env.ADDON_VERSION }}
-          # file path to be uploaded
-          asset-path: ${{ env.TGZ_NAME }}
-          # gh_token from import
-          gh_token: ${{ secrets.GH_TOKEN }}
-          
-            
+          tag_name: v${{ env.ADDON_VERSION }}  # Specify the tag name for the release
+          release_name: Release v${{ env.ADDON_VERSION }}  # Specify the release name
+          body: |
+            Release notes and description for v${{ env.ADDON_VERSION }}
+      - name: Upload to GitHub Releases
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: "./${{ env.TGZ_NAME }}"
+          asset_name: ${{ env.TGZ_NAME }}
+          asset_content_type: application/gzip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
