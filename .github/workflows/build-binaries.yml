@@ -113,25 +113,37 @@ jobs:
       #     key: ${{ secrets.SSH_PRIVATE_KEY }}
       #     source: "${{ env.TGZ_NAME }}"
       #     target: /tmp/v${{ env.ADDON_VERSION }}/${{ env.TDLIB_GIT_COMMIT_HASH }}/
-      - name: Create/Update release and upload assets
+      # - name: Create/Update release and upload assets
+      #   # You may pin to the exact commit or the version.
+      #   # uses: ColinPitrat/update-release@ae88712eedac1679d610a95fde906b2d4c94614a
+      #   uses: ColinPitrat/update-release@v1.0.1
+      #   with:
+      #     # Your Github token; try \$\{\{ secrets.GITHUB_TOKEN \}\} if your build lasts less than an hour, or create your own secret token with repository access if your build requires longer than an hour.
+      #     token: ${{ secrets.GH_TOKEN }}
+      #     # Paths to built files to be released. May be absolute or relative to \$\{\{ github.workspace \}\}.
+      #     files: ${{ env.TGZ_NAME }}
+      #     # The name of the release to be created. A reasonable looking release name will be created from the current \$\{\{ github.ref \}\} if this input is not supplied.
+      #     release: ${{ env.ADDON_VERSION }}
+      #     # # The name of the tag to be used. If not provided, the name of the release will be used.
+      #     # tag: # optional
+      #     # # A one-line description for both the tag and the release.
+      #     # message: # optional
+      #     # # A fuller description of the release.
+      #     # body: # optional
+      #     # # Should the release, if created, be marked as a prerelease?  Such releases are generally publicly visible.
+      #     # prerelease: # optional
+      #     # Should the release, if created, be marked as a draft?  Such releases are generally not publicly visible.
+      #     draft: true
+      - name: Upload multi files to GitHub release assets
         # You may pin to the exact commit or the version.
-        # uses: ColinPitrat/update-release@ae88712eedac1679d610a95fde906b2d4c94614a
-        uses: ColinPitrat/update-release@v1.0.1
+        # uses: tornado404/upload-multi-assets@3c0e93a7e18f3f3d766177de6eb125392f25f555
+        uses: tornado404/upload-multi-assets@v0.7.6
         with:
-          # Your Github token; try \$\{\{ secrets.GITHUB_TOKEN \}\} if your build lasts less than an hour, or create your own secret token with repository access if your build requires longer than an hour.
-          token: ${{ secrets.GH_TOKEN }}
-          # Paths to built files to be released. May be absolute or relative to \$\{\{ github.workspace \}\}.
-          files: ${{ env.TGZ_NAME }}
-          # The name of the release to be created. A reasonable looking release name will be created from the current \$\{\{ github.ref \}\} if this input is not supplied.
-          release: ${{ env.ADDON_VERSION }}
-          # # The name of the tag to be used. If not provided, the name of the release will be used.
-          # tag: # optional
-          # # A one-line description for both the tag and the release.
-          # message: # optional
-          # # A fuller description of the release.
-          # body: # optional
-          # # Should the release, if created, be marked as a prerelease?  Such releases are generally publicly visible.
-          # prerelease: # optional
-          # Should the release, if created, be marked as a draft?  Such releases are generally not publicly visible.
-          draft: true
+          # git tag
+          tag: ${{ env.ADDON_VERSION }}
+          # file path to be uploaded
+          asset-path: ${{ env.TGZ_NAME }}
+          # gh_token from import
+          gh_token: ${{ secrets.GH_TOKEN }}
+          
             
