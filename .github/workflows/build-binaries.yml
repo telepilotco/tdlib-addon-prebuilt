@@ -132,6 +132,6 @@ jobs:
           # body: # optional
           # # Should the release, if created, be marked as a prerelease?  Such releases are generally publicly visible.
           # prerelease: # optional
-          # # Should the release, if created, be marked as a draft?  Such releases are generally not publicly visible.
-          # draft: # optional
+          # Should the release, if created, be marked as a draft?  Such releases are generally not publicly visible.
+          draft: true
             
