@@ -1,14 +1,9 @@
 name: Build TDLib Addon binaries
-# This workflow can be executed using a command like this:
-# gh workflow run prebuilt-tdlib.yml --ref develop -f tdlib=v1.8.0 \
-# -f npm-version=0.1008000.0 -f npm-tag=latest -f npm-add-tag=td-1.8.0
+
 on:
-  workflow_dispatch:
-    inputs:
-      ADDON_VERSION:
-        description: 'version of "tdlib-addon-prebuilt" from package.json'
-        type: string
-        required: true
+  release:
+    types:
+      - created
         
 env:
   DOCKER_IMAGE_GLIBC: node:16-slim
@@ -134,20 +129,10 @@ jobs:
       #     # prerelease: # optional
       #     # Should the release, if created, be marked as a draft?  Such releases are generally not publicly visible.
       #     draft: true
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        with:
-          tag_name: v${{ env.ADDON_VERSION }}  # Specify the tag name for the release
-          release_name: Release v${{ env.ADDON_VERSION }}  # Specify the release name
-          body: |
-            Release notes and description for v${{ env.ADDON_VERSION }}
       - name: Upload to GitHub Releases
         uses: actions/upload-release-asset@v1
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: "./${{ env.TGZ_NAME }}"
           asset_name: ${{ env.TGZ_NAME }}
           asset_content_type: application/gzip
